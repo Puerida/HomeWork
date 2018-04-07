@@ -1,0 +1,60 @@
+#include<stdio.h>
+
+
+void show(int a[], int end){
+    int i;
+
+    for (i = 0; i <= end; i++){
+        printf("%d,", a[i]);
+    }
+    printf("\n");
+}
+
+
+int firstDivid(int a[], int first, int end){
+
+    int i,j;
+    int temp;
+    i = first;
+    j = end;
+
+    while (i < j){
+        while (i < j&& a[i] < a[j])j--;
+        if (i < j){
+            temp = a[i];
+            a[i] = a[j];
+            a[j] = temp;
+            i++;
+        }
+        while (i < j && a[i] <= a[j]) i++;
+        if (i < j){
+            temp = a[i];
+            a[i] = a[j];
+            a[j] = temp;
+            j--;
+        }
+    }
+
+    return i;
+}
+
+void quickSort(int a[], int first, int end){
+    int pivot;
+    if (first < end){
+        pivot = firstDivid(a, first, end);
+        quickSort(a, first, pivot - 1);
+        quickSort(a, pivot + 1, end);
+    }
+}
+
+void main(){
+    int a[10];
+	int i;
+	for(i=0;i<10;i++){
+		scanf("%d",&a[i]);
+	}
+    int start = 0;
+    int end = 10;
+    quickSort(a, start, end);
+    show(a, end);
+}
